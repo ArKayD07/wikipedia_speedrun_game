@@ -136,7 +136,7 @@ h1 {
 
 .route-label {
 	font-weight: 600;
-	color: #4ecdc4;
+	color: black;
 	font-size: 0.9rem;
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
@@ -198,7 +198,7 @@ h1 {
 }
 
 .instructions h3 {
-	color: #feca57;
+	color: black;
 	margin-bottom: 10px;
 	font-size: 1.1rem;
 }
