@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wikipedia Speedrun Challenge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    .challenge {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    a {
+      color: #1a0dab;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Wikipedia Speedrun Challenge</h1>
+  <p>Click below to get your random speedrun challenge!</p>
+  <button onclick="generateChallenge()">Generate Challenge</button>
+  <div class="challenge" id="challenge"></div>
+
+  <script>
+    async function getRandomPageTitle() {
+      const response = await fetch("https://en.wikipedia.org/api/rest_v1/page/random/summary");
+      const data = await response.json();
+      return { title: data.title, url: data.content_urls.desktop.page };
+    }
+
+    async function generateChallenge() {
+      const start = await getRandomPageTitle();
+      let end;
+      do {
+        end = await getRandomPageTitle();
+      } while (end.title === start.title);
+
+      document.getElementById("challenge").innerHTML = `
+        <p><strong>Start:</strong> <a href="${start.url}" target="_blank">${start.title}</a></p>
+        <p><strong>End:</strong> <a href="${end.url}" target="_blank">${end.title}</a></p>
+        <p>Try to reach the end page by clicking only Wikipedia links!</p>
+      `;
+    }
+  </script>
+</body>
+</html>
